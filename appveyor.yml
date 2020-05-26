@@ -1,0 +1,22 @@
+version: '{build}'
+
+environment:
+  DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true
+  DOTNET_CLI_TELEMETRY_OPTOUT: true
+
+skip_commits:
+  files:
+    - '*.md'
+
+image: Visual Studio 2019
+platform: Any CPU
+configuration: Release
+before_build:
+- ps: nuget restore
+build:
+  project: Flow.Launcher.Plugin.sln
+  verbosity: minimal
+
+artifacts:
+  - path: Flow.Launcher.Plugin\bin\Release\*.nupkg
+  - path: Flow.Launcher.Plugin\bin\Release\*.snupkg
